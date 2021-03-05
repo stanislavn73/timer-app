@@ -1,1 +1,1 @@
-Delpoyed project:https://mobx-app.netlify.app/
+Delpoyed project: https://timer-mobx.netlify.app
