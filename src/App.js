@@ -30,7 +30,6 @@ const App = observer(({ timerStore }) => {
         >
           <PauseIcon />
         </Button>
-        {console.log(timerStore.resetButtonDisabled)}
         <Button
           color="secondary"
           onClick={() => timerStore.reset()}
