@@ -1,17 +1,16 @@
-import { observable } from "mobx";
+import { observer } from "mobx-react-lite";
 
-const App = observable(({timerStore}) => {
+const App = observer(({ timerStore }) => {
 
   return (
-    <div >
-      {console.log(timerStore)}
+    <div className='app_container'>
       <p>Timer App</p>
-      <p></p>
-      <button onClick={()=>timerStore.startTimer()} >Start/Stop</button>
-      <button>Wait</button>
-      <button>Reset</button>
+      <p>{timerStore.display}</p>
+      <button onClick={() => timerStore.startStopTimer()} >Start/Stop</button>
+      <button  onClick={()=>timerStore.wait()}>Wait</button>
+      <button onClick={()=>timerStore.reset()} >Reset</button>
     </div>
   );
-}
-)
+})
+
 export default App;

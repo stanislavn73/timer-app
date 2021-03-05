@@ -1,50 +1,82 @@
 import dayjs from 'dayjs';
-import { action, computed, observable } from 'mobx';
+import { computed, makeAutoObservable } from 'mobx';
 
+function addZero(n) {
+  if(n>=10){
+    return n
+  }
+  else{
+    return `0${n}`
+  }
+}
 
 export class TimerStore {
 
-  constructor(initialMilliseconds = 0) {
-    this.milliseconds = initialMilliseconds;
-    this.savedMilliseconds = 0;
+  constructor() {
+    makeAutoObservable(this)
   }
 
-  @observable startTime = dayjs()
-  @observable isTicking = false
-  @observable seconds = 0
+  startTime = dayjs()
+  isTicking = false
+  seconds = 0
+  waiting = false
+  doubleClick = false
 
-  @action startTimer() {
-    if (this.isTicking) return;
-    this.isTicking = true;
-    this.startTime = dayjs();
-    this.measure();
+  startStopTimer() {
+    if (this.isTicking) { this.stopTimer() }
+    else {
+      if (this.waiting) {
+        this.waiting = false
+        this.startTime = dayjs().subtract(this.seconds, 'second');
+
+      } else {
+        this.startTime = dayjs();
+      }
+      this.isTicking = true;
+      this.measure();
+    }
   }
 
-  @action stopTimer() {
+  wait() {
+    
+    if(this.doubleClick){
+      this.waiting = true
+      this.isTicking = false
+    }else{
+      this.doubleClick = setTimeout(() => {
+        this.doubleClick = false
+      }, 300);
+    }
+    
+  }
+
+  reset() {
+    this.startTime = dayjs()
+
+  }
+
+  stopTimer() {
     this.isTicking = false
+    this.startTime = dayjs()
+    this.seconds = 0
   }
 
-  @action measure() {
-    if (!this.isRunning) return;
+  measure() {
+    if (!this.isTicking) return;
 
     this.seconds = dayjs().diff(this.startTime, 'second');
 
     setTimeout(() => this.measure(), 1000);
+
   }
 
-  @computed display() {
+  @computed get display() {
     let hours = Math.floor(this.seconds / 3600)
     let minutes = Math.floor(this.seconds / 60)
     let seconds = this.seconds % 60
 
-    return `${hours}:${minutes}:${seconds}`
+    return `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}`
   }
 
-  render() {
-    return (
-      <div>
 
-      </div>
-    )
-  }
 }
