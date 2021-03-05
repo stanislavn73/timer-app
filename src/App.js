@@ -7,8 +7,8 @@ const App = observer(({ timerStore }) => {
       <p>Timer App</p>
       <p>{timerStore.display}</p>
       <button onClick={() => timerStore.startStopTimer()} >Start/Stop</button>
-      <button  onClick={()=>timerStore.wait()}>Wait</button>
-      <button onClick={()=>timerStore.reset()} >Reset</button>
+      <button onClick={() => timerStore.wait()}>Wait</button>
+      <button onClick={() => timerStore.reset()} >Reset</button>
     </div>
   );
 })
