@@ -20,6 +20,7 @@ export class TimerStore {
   seconds = 0
   isWaiting = false
   doubleClick = false
+  resetButtonDisabled = false
 
   startStopTimer() {
     if (this.isTicking) { this.stopTimer() }
@@ -27,6 +28,7 @@ export class TimerStore {
       if (this.isWaiting) {
         this.isWaiting = false
         this.startTime = dayjs().subtract(this.seconds, 'second');
+        this.resetButtonDisabled = false
       } else {
         this.startTime = dayjs();
       }
@@ -38,6 +40,7 @@ export class TimerStore {
   wait() {
     if (this.doubleClick) {
       this.isWaiting = true
+      this.resetButtonDisabled = true
       this.isTicking = false
     } else {
       this.doubleClick = setTimeout(() => {
@@ -61,6 +64,8 @@ export class TimerStore {
     this.seconds = dayjs().diff(this.startTime, 'second');
     setTimeout(() => this.measure(), 1000);
   }
+
+
 
   get display() {
     let hours = Math.floor(this.seconds / 3600)
