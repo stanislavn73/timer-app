@@ -18,14 +18,14 @@ export class TimerStore {
   startTime = dayjs()
   isTicking = false
   seconds = 0
-  waiting = false
+  isWaiting = false
   doubleClick = false
 
   startStopTimer() {
     if (this.isTicking) { this.stopTimer() }
     else {
-      if (this.waiting) {
-        this.waiting = false
+      if (this.isWaiting) {
+        this.isWaiting = false
         this.startTime = dayjs().subtract(this.seconds, 'second');
       } else {
         this.startTime = dayjs();
@@ -37,7 +37,7 @@ export class TimerStore {
 
   wait() {
     if (this.doubleClick) {
-      this.waiting = true
+      this.isWaiting = true
       this.isTicking = false
     } else {
       this.doubleClick = setTimeout(() => {

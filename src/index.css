@@ -12,6 +12,14 @@ code {
     monospace;
 }
 .app_container{
+text-align: center;
   margin:20px auto ;
   width: 50%;
+}
+.app_container div{
+  align-self: center;
+}
+
+p{
+  text-align: center;
 }
