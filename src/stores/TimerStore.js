@@ -17,7 +17,7 @@ export class TimerStore {
 
   startTime = dayjs()
   isTicking = false
-  seconds = 0
+  seconds = 20000
   isWaiting = false
   doubleClick = false
   resetButtonDisabled = false
@@ -69,7 +69,7 @@ export class TimerStore {
 
   get display() {
     let hours = Math.floor(this.seconds / 3600)
-    let minutes = Math.floor(this.seconds / 60)
+    let minutes = Math.floor(this.seconds / 60)-hours*60
     let seconds = this.seconds % 60
     return `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}`
   }
