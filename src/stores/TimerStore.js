@@ -17,7 +17,7 @@ export class TimerStore {
 
   startTime = dayjs()
   isTicking = false
-  seconds = 20000
+  seconds = 0
   isWaiting = false
   doubleClick = false
   resetButtonDisabled = false
